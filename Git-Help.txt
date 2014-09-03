@@ -1,0 +1,20 @@
+﻿
+1) Do Commit from the SourceControl menu (using commit message)
+This would commit locally 
+
+2) Run commandline: 
+
+git push https://github.com/despos/portobello/ master
+
+This would sync with remote source
+
+
+FROM COMMAND LINE ENTIRELY
+
+git add -A
+git commit  // requires message
+git push https://github.com/despos/portobello/ master
+
+
+git pull https://github.com/despos/portobello/ master
+to download

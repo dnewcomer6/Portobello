@@ -34,6 +34,13 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AutoComplete\AutoCompleteHelpers.cs" />
+    <Compile Include="AutoComplete\AutoCompleteItem.cs" />
+    <Compile Include="AutoComplete\CollectionSearchEngine.cs" />
+    <Compile Include="AutoComplete\DefaultAutoCompleteEngine.cs" />
+    <Compile Include="AutoComplete\IAutoCompleteEngine.cs" />
+    <Compile Include="AutoComplete\ISearchEngine.cs" />
+    <Compile Include="AutoComplete\SearchType.cs" />
     <Compile Include="Extensions\DateExtensions.cs" />
     <Compile Include="Extensions\EnumExtensions.cs" />
     <Compile Include="Extensions\IntExtensions.cs" />

@@ -32,14 +32,22 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AutoComplete\DefaultAutoCompleteEngine.cs" />
+    <Compile Include="AutoComplete\AutoCompleteHelpers.cs" />
+    <Compile Include="AutoComplete\AutoCompleteItem.cs" />
+    <Compile Include="AutoComplete\ISearchEngine.cs" />
+    <Compile Include="AutoComplete\IAutoCompleteEngine.cs" />
+    <Compile Include="AutoComplete\SearchType.cs" />
+    <Compile Include="AutoComplete\CollectionSearchEngine.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Expoware.Portobello.csproj">
+      <Project>{c0744b2e-3c22-4d79-b006-c50d6d7a733b}</Project>
+      <Name>Expoware.Portobello</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

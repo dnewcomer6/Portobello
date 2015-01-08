@@ -1,0 +1,58 @@
+﻿
+.twitter-typeahead .tt-query,
+.twitter-typeahead .tt-hint {
+	margin-bottom: 0;
+}
+/* This is the input box used for typing */
+.twitter-typeahead {
+    width: 100%;
+    background-color: #f0f8ff;
+    border-radius: 5px 0 0 5px;
+    margin-top: 5px;                /* Seems necessary to align with button in BS */
+}
+/* This is a child element of the input box used for typing */
+.tt-query {
+    color: #f08;        /* When not typing */
+}
+.tt-query:focus {
+    color: #00c;         /* when typing */
+    font-weight: bold;
+}
+.tt-hint {
+	display: none;
+}
+.tt-dropdown-menu {
+	min-width: 100%;
+	margin-top: 2px;
+	padding: 5px 0;
+	background-color: #ddd;
+    color: #222;
+	border: 1px solid #cccccc;
+	border: 1px solid rgba(0, 0, 0, 0.15);
+	border-radius: 4px;
+	-webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+	box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+	background-clip: padding-box;
+}
+.tt-suggestion {
+	display: block;
+	padding: 3px 20px;
+    color: #888;
+}  
+.tt-suggestion b {
+	display: block;
+	padding: 3px 20px;
+    color: red;
+}  
+.tt-suggestion.tt-is-under-cursor {
+	color: #ffd700;
+    background-color: #444;  
+}  
+.tt-suggestion.tt-is-under-cursor a {
+	color: #fff;
+}
+.tt-suggestion p {
+	margin: 0;
+    font-size: 1.2em;
+}
+ 

@@ -179,5 +179,32 @@ namespace Expoware.Portobello.Extensions
                 return 0;
             return theString.Length;
         }
+
+        /// <summary>
+        /// Merges char {0} and {1} word count in a new string according to given format string
+        /// </summary>
+        /// <param name="theString">String to process</param>
+        /// <param name="format">Format to apply to resulting string</param>
+        /// <returns>New string</returns>
+        public static String SplitCount(this String theString, String format)
+        {
+            // 0 = char count, 1 = word count
+            if (String.IsNullOrWhiteSpace(format))
+                return String.Empty;
+
+            return String.Format(format, theString.CharCount(), theString.WordCount());
+        }
+
+        /// <summary>
+        /// Replaces all occurrences of given tokens with the same replace string.
+        /// </summary>
+        /// <param name="theString">String to process</param>
+        /// <param name="replaceString">String to be used to replace tokens in the input string </param>
+        /// <param name="tokens">Substring to be replaced with replaceString</param>
+        /// <returns>Modified string</returns>
+        public static String ReplaceAny(this String theString, String replaceString, params String[] tokens)
+        {
+            return tokens.Aggregate(theString, (current, t) => current.Replace(t, replaceString));
+        }
     }
 }

@@ -1,0 +1,51 @@
+﻿
+<style type="text/css">
+    #queryString {
+        border: none;
+    }
+</style>
+
+<div class="jumbotron" style="margin-top: 50px">
+    <h2>What are you looking for?</h2>
+    <form class="form-group" action="@Url.Action("Query", "Home")" method="post">
+        <input type="hidden" id="queryCode" name="queryCode" />
+        <div class="input-group input-group-lg">
+            <input type="text" name="queryString" id="queryString"
+                   class="form-control input-lg"
+                   autocomplete="off"
+                   placeholder="He who searches finds ...">
+            <span class="input-group-btn">
+                <button id="queryButton" class="btn btn-primary" type="submit">Get</button>
+            </span>
+
+        </div>
+    </form>
+    <span>Bios, talks, conferences, ...</span>
+</div>
+
+
+<script>
+    var typeaheadItemSelected = false;
+    $('#queryString').typeahead({
+        limit: 15,
+        minLength: 2,
+        remote: {
+// No need of filter if there's a "value" property in the JSON array
+            url: ROOTSERVER + "/hint/s?query=%QUERY"
+        }
+    });
+    $('#queryString').on('typeahead:selected', function (e, datum) {
+        $("#queryCode").val(datum.id);
+        $("#queryString").val(datum.label);      // required only if you use custom styles in drop-down; otherwise, it takes value
+        typeaheadItemSelected = true;
+        $("#queryButton").click();     // auto-submit after selection
+    });
+    $('#queryString').on('input', function () {
+        if (typeaheadItemSelected) {
+            typeaheadItemSelected = false;
+            $('#queryString').typeahead('setQuery', '');
+            $("#queryCode").val('');
+        }
+    });
+</script>
+

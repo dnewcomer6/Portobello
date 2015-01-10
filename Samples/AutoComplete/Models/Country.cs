@@ -1,4 +1,4 @@
-﻿namespace AutoComplete.Common.SearchEngines
+﻿namespace AutoComplete.Models
 {
     public class Country
     {

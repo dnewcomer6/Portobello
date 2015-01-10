@@ -1,51 +1,62 @@
 ﻿
-<style type="text/css">
-    #queryString {
-        border: none;
-    }
-</style>
+
 
 <div class="jumbotron" style="margin-top: 50px">
-    <h2>What are you looking for?</h2>
+   
     <form class="form-group" action="@Url.Action("Query", "Home")" method="post">
         <input type="hidden" id="queryCode" name="queryCode" />
         <div class="input-group input-group-lg">
             <input type="text" name="queryString" id="queryString"
-                   class="form-control input-lg"
-                   autocomplete="off"
-                   placeholder="He who searches finds ...">
+                    class="form-control input-lg"
+                    autocomplete="off"
+                    placeholder="He who searches finds ...">
             <span class="input-group-btn">
                 <button id="queryButton" class="btn btn-primary" type="submit">Get</button>
             </span>
-
         </div>
     </form>
-    <span>Bios, talks, conferences, ...</span>
 </div>
 
+<link href="~/Content/Styles/typeahead-fix.css" rel="stylesheet" type="text/css" />
 
-<script>
+<script src="~/Content/Scripts/typeahead.bundle.min.js"></script>
+<script src="~/Content/Scripts/handlebars-v2.0.0.js"></script>
+<script type="text/javascript">
     var typeaheadItemSelected = false;
-    $('#queryString').typeahead({
-        limit: 15,
-        minLength: 2,
-        remote: {
-// No need of filter if there's a "value" property in the JSON array
-            url: ROOTSERVER + "/hint/s?query=%QUERY"
-        }
+
+    var hints = new Bloodhound({
+        datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
+        queryTokenizer: Bloodhound.tokenizers.whitespace,
+        remote: ROOTSERVER + "/hint/s?query=%QUERY"
     });
+    hints.initialize();
+
+    $('#queryString').typeahead(
+    {
+        highlight: true,
+        hint: false,
+        limit: 15
+    },
+    {
+        //displayKey: 'value',
+        templates: {
+            suggestion: Handlebars.compile('<p><strong>{{label}}</strong> – {{id}}</p>')
+        },
+        source: hints.ttAdapter()
+    });
+
     $('#queryString').on('typeahead:selected', function (e, datum) {
         $("#queryCode").val(datum.id);
-        $("#queryString").val(datum.label);      // required only if you use custom styles in drop-down; otherwise, it takes value
+        //$("#queryString").val(datum.label);    // If you want it to be value there's no need to write it explicitly  
         typeaheadItemSelected = true;
-        $("#queryButton").click();     // auto-submit after selection
+        //$("#queryButton").click();     // auto-submit after selection
     });
     $('#queryString').on('input', function () {
         if (typeaheadItemSelected) {
             typeaheadItemSelected = false;
-            $('#queryString').typeahead('setQuery', '');
+
+            $('#queryString').val('');  
             $("#queryCode").val('');
         }
     });
 </script>
-

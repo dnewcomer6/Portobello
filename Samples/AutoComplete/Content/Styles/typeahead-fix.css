@@ -10,16 +10,8 @@
     border-radius: 5px 0 0 5px;
     margin-top: 5px;                /* Seems necessary to align with button in BS */
 }
-/* This is a child element of the input box used for typing */
-.tt-query {
-    color: #f08;        /* When not typing */
-}
-.tt-query:focus {
-    color: #00c;         /* when typing */
-    font-weight: bold;
-}
 .tt-hint {
-	display: none;
+    color: #f08080;
 }
 .tt-dropdown-menu {
 	min-width: 100%;
@@ -34,25 +26,32 @@
 	box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
 	background-clip: padding-box;
 }
+/* Text in the drop-down */
+
 .tt-suggestion {
 	display: block;
 	padding: 3px 20px;
-    color: #888;
+    color: #555;
 }  
-.tt-suggestion b {
-	display: block;
-	padding: 3px 20px;
-    color: red;
-}  
-.tt-suggestion.tt-is-under-cursor {
+/*
+.tt-suggestion .tt-is-under-cursor {
 	color: #ffd700;
     background-color: #444;  
 }  
 .tt-suggestion.tt-is-under-cursor a {
 	color: #fff;
+}*/
+.tt-cursor {
+  color: #fff;
+  background-color: #0097cf;
+
 }
 .tt-suggestion p {
 	margin: 0;
     font-size: 1.2em;
+}
+.tt-highlight {
+    font-weight: 600;
+    color: #00f;
 }
  

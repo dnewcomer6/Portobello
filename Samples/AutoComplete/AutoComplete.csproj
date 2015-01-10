@@ -55,8 +55,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\Scripts\handlebars-v2.0.0.js" />
     <Content Include="Content\Scripts\site.js" />
-    <Content Include="Content\Scripts\typeahead.min.js" />
+    <Content Include="Content\Scripts\typeahead.bundle.min.js" />
     <Content Include="Content\Styles\bootstrap.min.css" />
     <Content Include="Content\Styles\site.css" />
     <Content Include="Content\Styles\typeahead-fix.css" />
@@ -70,14 +71,17 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Common\AutoCompleteConfig.cs" />
     <Compile Include="Common\RouteConfig.cs" />
-    <Compile Include="Common\SearchEngines\Country.cs" />
+    <Compile Include="Models\Airport.cs" />
+    <Compile Include="Models\Country.cs" />
     <Compile Include="Controllers\HintController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\Services\HintService.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Repositories.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -95,7 +99,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
     <Folder Include="Views\Hint\" />
   </ItemGroup>
   <ItemGroup>

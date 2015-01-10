@@ -9,12 +9,17 @@ namespace AutoComplete.Controllers
             return View();
         }
 
-        public ActionResult Query(string queryCode)
+        public ActionResult Test()
         {
-            if (queryCode.StartsWith("t-"))
-                return RedirectToAction("talk", new { id = queryCode.Replace("t-", "") });
-            if (queryCode.StartsWith("c-"))
-                return RedirectToAction("conf", new { id = queryCode.Replace("c-", "") });
+            return View();
+        }
+
+        public ActionResult Query(string queryCode, string queryString)
+        {
+            //if (queryCode.StartsWith("t-"))
+            //    return RedirectToAction("talk", new { id = queryCode.Replace("t-", "") });
+            //if (queryCode.StartsWith("c-"))
+            //    return RedirectToAction("conf", new { id = queryCode.Replace("c-", "") });
             return View("index");
         }
     }

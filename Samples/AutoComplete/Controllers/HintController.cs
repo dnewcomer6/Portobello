@@ -9,7 +9,7 @@ namespace AutoComplete.Controllers
 
         public ActionResult S(string query)
         {
-            var hints = _service.GetHints(query);
+            var hints = _service.GetHintsForS(query);
             return Json(hints, JsonRequestBehavior.AllowGet);
         }
     }

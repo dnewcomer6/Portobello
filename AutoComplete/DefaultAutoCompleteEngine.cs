@@ -8,7 +8,13 @@ namespace Expoware.Portobello.AutoComplete
     {
         protected readonly IList<ISearchEngine> Engines = new List<ISearchEngine>();
 
-        public virtual IEnumerable<AutoCompleteItem> GetHints(string[] tokens, int maxRows = 15, SearchType typeOfSearch = SearchType.Or)
+        public IAutoCompleteEngine AddSearchEngine(ISearchEngine engine)
+        {
+            Engines.Add(engine);
+            return this;
+        }
+
+        public IEnumerable<AutoCompleteItem> GetHints(string[] tokens, int maxRows = 15, SearchType typeOfSearch = SearchType.Or)
         {
             var hints = new List<AutoCompleteItem>();
             foreach (var e in Engines)
@@ -23,36 +29,28 @@ namespace Expoware.Portobello.AutoComplete
 
         public IEnumerable<AutoCompleteItem> GetHints(string token, int maxRows = 15, SearchType typeOfSearch = SearchType.Or)
         {
-            var tokens = BreakUpQueryString(token);
+            var tokens = AutoCompleteHelpers.BreakUpQueryString(token);
             return GetHints(tokens);
-        }
-        public IAutoCompleteEngine AddSearchEngine(ISearchEngine engine)
-        {
-            Engines.Add(engine);
-            return this;
         }
 
 
         #region VIRTUAL
 
-        protected virtual string[] BreakUpQueryString(string query)
-        {
-            var orSymbols = new[] { ",", ";" };
+        //protected virtual string[] BreakUpQueryString(string query)
+        //{
+        //    // Get the list of searchable tokens in the search string
+        //    query = query.ToLower();
+        //    query = query.ReplaceAny(" ", /* To be replaced */ ",", ";", "+", "*", "[", "]", "@");
 
-            // Get the list of searchable tokens in the search string
-            query = query.ToLower();
-            var shouldStopAtFirstMatch = query.ContainsAny(orSymbols);
-            query = query.ReplaceAny(" ", /* To be replaced */ ",", ";", "+", "*", "[", "]", "@");
-
-            // Get the list of searchable tokens in the search string
-            var tokens = query.ToLower().Split(' ');
-            if (tokens.Length > 0)
-            {
-                tokens = tokens.Where(t => !t.IsNullOrWhitespace()).ToArray();
-                return tokens;
-            }
-            return new[] {query };
-        }
+        //    // Get the list of searchable tokens in the search string
+        //    var tokens = query.ToLower().Split(' ');
+        //    if (tokens.Length > 0)
+        //    {
+        //        tokens = tokens.Where(t => !t.IsNullOrWhitespace()).ToArray();
+        //        return tokens;
+        //    }
+        //    return new[] { query };
+        //}
         #endregion
     }
 }

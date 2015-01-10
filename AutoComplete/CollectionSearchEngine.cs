@@ -9,41 +9,51 @@ namespace Expoware.Portobello.AutoComplete
     {
         private readonly IList<T> _data = new List<T>();
         private readonly Func<T, AutoCompleteItem> _builder = null;
-        //private readonly string[] _properties = null;
         private readonly Func<T, string>[] _properties = null;
 
         public CollectionSearchEngine(IList<T> data, Func<T, AutoCompleteItem> builder, params Func<T, string>[] properties)
         {
             _data = data;
+            _properties = properties;
             _builder = builder;
+        }
+
+        public CollectionSearchEngine(IList<T> data, params Func<T, string>[] properties)
+        {
+            _data = data;
             _properties = properties;
         }
 
-        public bool CanHandle(string[] tokens)
+        public bool CanHandle(string[] token)
         {
             return true;
         }
-
+        
         public IEnumerable<AutoCompleteItem> GetHints(string[] tokens, int maxRows = 15, SearchType typeOfSearch = SearchType.Or)
         {
             if (_builder == null)
                 return new List<AutoCompleteItem>();
+
             var hints = _data.Where(t => CanMatch(t, tokens, typeOfSearch))
                 .Select(_builder)
                 .Take(maxRows)
                 .ToList();
-
-            //t => new AutoCompleteItem
-            //    {
-            //        value = t.Title,
-            //        id = "t-" + t.Id.ToString(CultureInfo.InvariantCulture),
-            //        label = Format(t.Title, tokens)
-            //    }))
-            //    .Take(maxRows)
-            //    .ToList();
             return hints;
         }
 
+        public IEnumerable<T> GetData(string token, int maxRows = 15, SearchType typeOfSearch = SearchType.Or)
+        {
+            var tokens = AutoCompleteHelpers.BreakUpQueryString(token);
+            return GetData(tokens);
+        }
+
+        public IEnumerable<T> GetData(string[] tokens, int maxRows = 15, SearchType typeOfSearch = SearchType.Or)
+        {
+            var hints = _data.Where(t => CanMatch(t, tokens, typeOfSearch))
+                .Take(maxRows)
+                .ToList();
+            return hints;
+        }
 
         protected virtual bool CanMatch(T item, IList<String> tokens, SearchType typeOfSearch = SearchType.Or)
         {
@@ -52,7 +62,7 @@ namespace Expoware.Portobello.AutoComplete
             {
                 b.AppendFormat("{0} | ", p(item));
             }
-            
+
             var text = b.ToString().Trim(' ', '|');
 
             var normalized = text.ToLower();
